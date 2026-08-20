@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/src/main/java/com/fast/springboot/config" title="基础配置类"/>
+     <tree path="/src/main/java/com/fast/springboot/configure" title="应用配置类"/>
+     <tree path="/src/main/java/com/fast/springboot/controller" title="控制器"/>
+     <tree path="/src/main/java/com/fast/springboot/domain" title="实体类"/>
+     <tree path="/src/main/java/com/fast/springboot/exception" title="异常处理类"/>
+     <tree path="/src/main/java/com/fast/springboot/mapper" title="对象映射-数据"/>
+     <tree path="/src/main/java/com/fast/springboot/service" title="服务层，业务逻辑"/>
+     <tree path="/src/main/java/com/fast/springboot/utils" title="工具类"/>
+ </trees>

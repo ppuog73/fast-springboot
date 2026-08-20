@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+    <!-- 上下文名称 -->
+    <contextName>springboot-fast</contextName>
+    <!-- 自定义属性：日志存储路径，需要用户根据实际情况修改 -->
+    <property name="LOG_HOME" value="./file/logs" />
+    <!-- 自定义属性：日志文件名称 -->
+    <property name="LOG_FILE_NAME" value="springboot-fast" />
+    <!-- 自定义属性：日志编码 -->
+    <property name="LOG_CHARSET" value="UTF-8" />
+    <!-- 自定义属性：日志输出格式 -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n" />
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>${LOG_CHARSET}</charset>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 普通日志文件输出 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志文件路径及名称 -->
+        <file>${LOG_HOME}/${LOG_FILE_NAME}.log</file>
+
+        <!-- 日志轮转策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志归档路径及格式，按天归档 -->
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 总日志大小限制 -->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+
+        <!-- 日志文件大小限制 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>100MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <charset>${LOG_CHARSET}</charset>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 错误日志文件输出 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 错误日志文件路径及名称 -->
+        <file>${LOG_HOME}/${LOG_FILE_NAME}-error.log</file>
+
+        <!-- 只输出ERROR级别日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <!-- 日志轮转策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 错误日志归档路径及格式，按天归档 -->
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 错误日志保留天数 -->
+            <maxHistory>60</maxHistory>
+            <!-- 总错误日志大小限制 -->
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+
+        <!-- 错误日志文件大小限制 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <charset>${LOG_CHARSET}</charset>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 根日志级别设置 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="ERROR_FILE" />
+    </root>
+
+    <!-- 自定义包日志级别设置 -->
+    <logger name="com.fast.springboot" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="ERROR_FILE" />
+    </logger>
+
+    <!-- Spring框架日志级别设置 -->
+    <logger name="org.springframework" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="ERROR_FILE" />
+    </logger>
+</configuration>

@@ -1,0 +1,36 @@
+# 配置spring
+spring:
+  # 配置数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #URL是数据库连接地址，是数据库最重要的配置
+    #jabc:mysql://表示使用的是mysql数据库，使用JDBC连接MySQL
+    #localhost:3306/fast?表示数据库的地址是本地，端口号是3306，数据库名称是fast
+    #useUnicode=true 表示使用Unicode编码
+    #characterEncoding=utf-8 字符集是UTF-8，避免中文乱码
+    #zeroTimeBehavior=convertToNull 表示将0000-00-00值转换为null值，避免出现0值的情况
+    #useSSL=ture 使用SSL加密连接，为了安全
+    #serverTimezone=GMT%2B8 时区是东八区，北京时间
+    url: jdbc:mysql://localhost:3306/fast?useUnicode=true&characterEncoding=utf-8&zeroTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC
+    username: root
+    password: Aa112233++
+
+# springboot环境配置
+server:
+  # 端口号
+  port: 8080
+  servlet:
+    # 应用访问路径，设置什么就表示以什么开头访问，比如设置为/fast就表示以/fast开头访问
+    context-path: /
+
+# 日志配置
+logging:
+  # 日志级别
+  level:
+    com.fast.springboot: debug
+    org.springframework: warn
+
+# 项目相关配置
+springboot:
+  #项目上传文件存放路径
+  profile: ./file
