@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * @author i666
  * @date 2026/8/20 20:26
- * @description 操作消息提醒
+ * @description 通用操作消息提醒
  */
 public class AjaxResult extends HashMap<String, Object> {
     /*

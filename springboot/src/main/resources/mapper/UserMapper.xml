@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace告诉mybatis去哪里找到定义的mapper接口 -->
+<mapper namespace="com.fast.springboot.mapper.UserMapper">
+    <!-- 将数据库中的字段与实体类中的字段联系起来 -->
+    <!-- result：用于普通字段映射
+         resultMap：用于复杂字段映射，一般是映射数据库操作结果集
+         id：主键字段映射
+         column：数据库字段名
+         property：实体类字段名
+         type：实体类名
+     -->
+    <resultMap type="User" id="UserResult">
+        <id     property="userId"        column="user_id"         />
+        <result property="userName"      column="user_name"       />
+        <result property="sex"           column="sex"             />
+        <result property="avatar"        column="avatar"          />
+        <result property="passWord"      column="password"        />
+        <result property="createTime"    column="create_time"     />
+    </resultMap>
+
+    <!-- 根据用户名称查询用户信息 -->
+    <!-- select：查询语句
+         id：查询语句的id
+         resultMap：查询结果映射
+         parameterType：参数类型（可以省略，mybatis会自动判断）
+     -->
+    <select id="selectUserByUsername" resultMap="UserResult" parameterType="string">
+        select user_id,user_name,sex,avatar,password,create_time
+        from fast_user
+        where user_name = #{username}
+    </select>
+</mapper>

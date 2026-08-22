@@ -11,7 +11,7 @@ spring:
     #zeroTimeBehavior=convertToNull 表示将0000-00-00值转换为null值，避免出现0值的情况
     #useSSL=ture 使用SSL加密连接，为了安全
     #serverTimezone=GMT%2B8 时区是东八区，北京时间
-    url: jdbc:mysql://localhost:3306/fast?useUnicode=true&characterEncoding=utf-8&zeroTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://192.168.3.31:3306/fast?useUnicode=true&characterEncoding=utf-8&zeroTimeBehavior=convertToNull&useSSL=false&serverTimezone=UTC
     username: root
     password: Aa112233++
 
@@ -22,6 +22,20 @@ server:
   servlet:
     # 应用访问路径，设置什么就表示以什么开头访问，比如设置为/fast就表示以/fast开头访问
     context-path: /
+
+#mybatis-plus配置
+mybatis:
+  # 配置mapper的扫描，告诉spring去哪里找mapper.xml文件
+  mapper-locations: classpath*:/mapper/**/*Mapper.xml
+  # 配置实体类路径，告诉mybatis去哪里找实体类，方便后面写mapper.xml文件时可以直接使用实体类名，而不用写全路径
+  type-aliases-package: com.fast.**.domain
+  # 配置全局的配置文件
+  configuration:
+    #日志配置，使用Slf4jImpl实现日志功能
+    #设置以后，可以在控制台中看到执行的SQL语句，方便调试
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    # 配置数据库的下划线命名规则
+    map-underscore-to-camel-case: true
 
 # 日志配置
 logging:
